@@ -16,8 +16,9 @@ public class EmployeeMgmt {
 		vo.setSearchKeyword("20080101");
 		 
 		List<EmployeeDTO> list = dao.getEmpList(vo);
-		System.out.println("                                      <리스트>");
-		System.out.println("================================================================================");
+//		System.out.println("                                      <리스트>");
+//		System.out.println("================================================================================");
+//		System.out.println("  사원 번호\t이름\t성\t이메일\t입사일");
 		System.out.println("================================================================================");
 		for (EmployeeDTO dto1 : list)
 			System.out.println(dto1);
@@ -39,12 +40,14 @@ public class EmployeeMgmt {
 		String eMail = sc.nextLine();
 		System.out.println("직무를 입력하세요.");
 		String job = sc.nextLine();
+		
 		dto.setEmployeeId(empNo);
 		dto.setFirstName(FirstName);
 		dto.setLastName(LastName);
 		dto.seteMail(eMail);
 		dto.setJobId(job);
-		dao.insertEmp(dto);
+//		dao.insertEmp(dto);
+		dao.insertEmpProc(dto);
 	}
 	public void updateEmpProc() {
 		System.out.println("수정할 사원 번호를 입력하세요.");
@@ -57,6 +60,7 @@ public class EmployeeMgmt {
 		String eMail = sc.nextLine();
 		System.out.println("직무를 입력하세요.");
 		String job = sc.nextLine();
+		
 		dto.setEmployeeId(empNo);
 		dto.setFirstName(FirstName);
 		dto.setLastName(LastName);

@@ -2,6 +2,7 @@ package DB;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,6 +37,7 @@ public class EmployeeDAO {
         }
 		return conn;
 	}
+	
 	public void insertEmp(EmployeeDTO dto) {
 		getConnection();
 		
@@ -52,6 +54,23 @@ public class EmployeeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void insertEmpProc(EmployeeDTO dto) {
+		getConnection();
+		
+		try {
+       	 	CallableStatement cstmt = conn.prepareCall("{call insert_emp_proc(?,?,?,?)}");
+       	 	cstmt.setString(1, dto.getFirstName());
+       	 	cstmt.setString(2, dto.getLastName());
+       	 	cstmt.setString(3, dto.geteMail());
+       	 	cstmt.setString(4, dto.getJobId());
+       	 	int r = cstmt.executeUpdate();
+       	 	System.out.println(r + " 건이 입력되었습니다.");
+            
+        } catch (SQLException e) {
+       	 e.printStackTrace();
+        }
 	}
 	
 	public void updateEmp(EmployeeDTO dto) {
@@ -81,18 +100,10 @@ public class EmployeeDAO {
 		}
 	}
 	
-	public void deleteEmp(String emp_id) {
+	public void updateEmpProc() {
 		getConnection();
 		
-		String sql = "DELETE FROM employees WHERE employee_id = ?";
 		
-		try {
-       	 	PreparedStatement pstmt = conn.prepareStatement(sql);
-       	 	pstmt.setString(1, emp_id);
-            
-        } catch (SQLException e) {
-       	 e.printStackTrace();
-        }
 	}
 	
 	public EmployeeDTO getEmpDTO(String emp_id) {
@@ -118,7 +129,6 @@ public class EmployeeDAO {
         }
 		return dto;
 	}
-	
 	
 	public List<EmployeeDTO> getEmpList(SearchVO vo) {
 		getConnection();
@@ -190,7 +200,7 @@ public class EmployeeDAO {
 		EmployeeDTO dto = null;
 		
 		try {
-			CallableStatement cstmt = conn.prepareCall("{call_get_emplist_proc(?,?,?)}");
+			CallableStatement cstmt = conn.prepareCall("{call get_emplist_proc(?,?,?)}");
 			cstmt.setInt(1, 500);
 			cstmt.setDate(2, new Date(100,0,1));
 			cstmt.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
@@ -208,6 +218,7 @@ public class EmployeeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
 		
 	}
 }
