@@ -1,0 +1,21 @@
+상품 추가 화면
+입출고 화면
+재고 확인(상품별)
+
+- 테이블
+<상품 정보> : prod_info
+상품key : prod_key
+상품명 : prod_name
+설명 : exp
+기초재고
+
+<입출고 정보> : io_info
+입출고key : io_key
+상품key
+입출고시간 : io_time
+창고명 : wh_id
+
+<재고 정보> : stock_info
+상품key
+창고명
+현 재고 : stock_stat
