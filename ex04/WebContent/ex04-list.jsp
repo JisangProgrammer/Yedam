@@ -13,7 +13,7 @@
 	<p></p>
 	<div class="container">
 	<table class="table">
-		<tr>
+		<tr class="table-primary">
 			<th>순번</th>
 			<th>작성자</th>
 			<th>작성일자</th>
