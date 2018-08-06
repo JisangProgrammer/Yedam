@@ -13,5 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="var" path="JDBC"/>
+	<classpathentry kind="var" path="jstl"/>
+	<classpathentry kind="var" path="jstl-standard"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
