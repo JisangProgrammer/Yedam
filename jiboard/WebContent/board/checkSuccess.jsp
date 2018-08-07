@@ -14,7 +14,7 @@
 		} else if (window.name == "delete") {
 			alert("삭제되었습니다.");
 			window.opener.parent.location.href
-			= "BoardServlet?command=board_delte&num=${param.num}";
+			= "BoardServlet?command=board_delete&num=${param.num}";
 		}
 		window.close();
 	</script>

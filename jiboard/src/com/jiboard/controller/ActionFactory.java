@@ -33,7 +33,7 @@ public class ActionFactory {
 			action = new BoardViewAction();
 		} else if (command.equals("board_check_pass_form")) {
 			action = new BoardCheckPassFormAction();
-		} else if (command.equals("board_write_pass")) {
+		} else if (command.equals("board_check_pass")) {
 			action = new BoardCheckPassAction();
 		} else if (command.equals("board_update_form")) {
 			action = new BoardUpdateFormAction();
