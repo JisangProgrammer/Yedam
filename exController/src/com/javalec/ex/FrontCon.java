@@ -53,7 +53,7 @@ public class FrontCon extends HttpServlet {
 		String command = uri.substring(conPath.length());
 		
 		if(command.equals("/membersAll.do")) {
-			response.setContentType("text/html; charset=EUC-KR");
+			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<html><head></head><body>");
 			
@@ -69,7 +69,7 @@ public class FrontCon extends HttpServlet {
 				Timestamp rDate = dto.getrDate();
 				String address = dto.getAddress();
 				
-				writer.println(id + ", " + pw + ", " + name + ", " + eMail + ", " + rDate.toLocalDateTime() + ", " + address + "<hr />");
+				writer.println(id + ", " + pw + ", " + name + ", " + eMail + ", " + rDate.toLocalDateTime() + ", " + address + "<hr>");
 			}
 			
 			writer.println("</body></html>");

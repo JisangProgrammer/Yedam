@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <% if(session.getAttribute("ValidMem") != null) { %>
 	<jsp:forward page="main.jsp"></jsp:forward>
 <% } %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<form action="loginOk.jsp" method="post">
-		¾ÆÀÌµğ : <input type="text" name="id" value="<% if(session.getAttribute("id") != null) out.println(session.getAttribute("id")); %>"> <br />
-		ºñ¹Ğ¹øÈ£ : <input type="password" name="pw"><br />
-		<input type="submit" value="·Î±×ÀÎ"> &nbsp;&nbsp; <input type="button" value="È¸¿ø°¡ÀÔ" onclick="javascript:window.location='join.jsp'">
+		ì•„ì´ë”” : <input type="text" name="id" value="<% if(session.getAttribute("id") != null) out.println(session.getAttribute("id")); %>"> <br>
+		ë¹„ë°€ë²ˆí˜¸ : <input type="password" name="pw"><br>
+		<input type="submit" value="ë¡œê·¸ì¸"> &nbsp;&nbsp; <input type="button" value="íšŒì›ê°€ì…" onclick="javascript:window.location='join.jsp'">
 	</form>
 </body>
 </html>

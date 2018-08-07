@@ -1,7 +1,7 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="com.javalec.ex.*"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("EUC-KR"); %>
 <jsp:useBean id="dto" class="com.javalec.ex.MemberDto"/>
 <jsp:setProperty name="dto" property="*" />
@@ -10,8 +10,8 @@
 		MemberDao dao = MemberDao.getInstance();
 		if(dao.confirmId(dto.getId()) == 1) {
 %>
-		<script language="javascript">
-			alert("¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸Àç ÇÕ´Ï´Ù.");
+		<script>
+			alert("ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬ í•©ë‹ˆë‹¤.");
 			history.back();
 		</script>
 <%
@@ -20,25 +20,25 @@
 			if(ri == 1) {
 				session.setAttribute("id", dto.getId());
 %>
-			<script language="javascript">
-				alert("È¸¿ø°¡ÀÔÀ» ÃàÇÏ ÇÕ´Ï´Ù.");
+			<script>
+				alert("íšŒì›ê°€ì…ì„ ì¶•í•˜ í•©ë‹ˆë‹¤.");
 				document.location.href="login.jsp";
 			</script>
 <%
 			} else {
 %>
-			<script language="javascript">
-				alert("È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+			<script>
+				alert("íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 				document.location.href="login.jsp";
 			</script>
 <%
 			}
 		}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>

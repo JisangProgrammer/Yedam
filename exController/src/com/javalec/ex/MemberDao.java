@@ -104,12 +104,12 @@ public class MemberDao {
 			if(set.next()) {
 				dbPw = set.getString("pw");
 				if(dbPw.equals(pw)) {
-					ri = 1;		// ·Î±×ÀÎ Ok
+					ri = 1;		// ï¿½Î±ï¿½ï¿½ï¿½ Ok
 				} else {
-					ri = 0;		// ºñ¹ø X
+					ri = 0;		// ï¿½ï¿½ï¿½ X
 				}
 			} else {
-				ri = -1;		// È¸¿ø X	
+				ri = -1;		// È¸ï¿½ï¿½ X	
 			}
 			
 		} catch (Exception e) {
@@ -242,7 +242,7 @@ public class MemberDao {
 		Connection connection = null;
 		try {
 			context = new InitialContext();
-			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle11g");
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/orcl");
 			connection = dataSource.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
