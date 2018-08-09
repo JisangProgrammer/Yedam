@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<jsp:include page="../header.jsp"/>
+
+
 	<h1>비밀번호 확인</h1>
 	<form action="BoardServlet" name="frm" method="get">
 		<input type="hidden" name="command" value="board_check_pass">
@@ -19,5 +16,6 @@
 		<div>${message}</div>
 		
 	</form>
-</body>
-</html>
+
+	
+<jsp:include page="../footer.jsp"/>
