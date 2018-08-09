@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.ylib.command.Command;
 import com.ylib.command.ContentCommand;
 import com.ylib.command.ListCommand;
-import com.ylib.command.ModifyCommand;
-import com.ylib.command.RegistCommand;
+import com.ylib.command.UpdateCommand;
+import com.ylib.command.InsertCommand;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -45,7 +45,7 @@ public class FrontController extends HttpServlet {
 			viewPage = "regist_view.jsp";
 		}
 		else if(com.equals("/regist.do")) {
-			command = new RegistCommand();
+			command = new InsertCommand();
 			command.execute(request, response);
 			viewPage = "list.do";
 		}
@@ -60,7 +60,7 @@ public class FrontController extends HttpServlet {
 			viewPage = "content_view.jsp";
 		}
 		else if(com.equals("/modify.do")) {
-			command = new ModifyCommand();
+			command = new UpdateCommand();
 			command.execute(request, response);
 			viewPage = "list.do";
 		}

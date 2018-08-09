@@ -1,6 +1,6 @@
 package com.ylib.command;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +12,7 @@ public class ListCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		LibDAO dao = new LibDAO();
-		ArrayList<LibVO> dtos = dao.list();
+		List<LibVO> dtos = dao.list();
 		request.setAttribute("list", dtos);
 	};
 }

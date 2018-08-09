@@ -9,17 +9,6 @@ public class LibVO {
 	private int amount;
 	private String comments;
 	
-	public LibVO() {}
-	public LibVO(int bId, String bName, String writer, String publisher, String location, int amount, String comments) {
-		this.bId = bId;
-		this.bName = bName;
-		this.writer = writer;
-		this.publisher = publisher;
-		this.location = location;
-		this.amount = amount;
-		this.comments = comments;
-	}
-	
 	public int getbId() {
 		return bId;
 	}

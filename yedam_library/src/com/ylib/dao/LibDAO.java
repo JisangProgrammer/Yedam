@@ -3,7 +3,9 @@ package com.ylib.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -22,105 +24,102 @@ public class LibDAO {
 			e.printStackTrace();
 		}
 	}
-
-	public void regist(String bName, String writer, String publisher, String comments) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		try {
-			connection = dataSource.getConnection();
-			String sql = "insert into books(bId, bName, writer, location, amount, comments) values (books_seq.nextval, ?, ?, ?, books_seq.currval, ?)";
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, bName);
-			preparedStatement.setString(2, writer);
-			preparedStatement.setString(3, publisher);
-			preparedStatement.setString(4, comments);
-			int rn = preparedStatement.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}	
-	}
 	
-	public ArrayList<LibVO> list() {
-		ArrayList<LibVO> dtos = new ArrayList<LibVO>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+	public List<LibVO> list() {
+		String sql = "select * from books order by bId desc";
+		List<LibVO> dtos = new ArrayList<LibVO>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		
 		try {
-			connection = dataSource.getConnection();
+			conn = dataSource.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 			
-			String sql = "select * from books order by bId desc";
-			preparedStatement = connection.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) {
-				int bId = resultSet.getInt("bId");
-				String bName = resultSet.getString("bName");
-				String writer = resultSet.getString("writer");
-				String comments = resultSet.getString("comments");
-				String location = resultSet.getString("location");
-				int amount = resultSet.getInt("amount");
-				
-				LibVO dto = new LibVO(bId, bName, writer, comments, location, amount, location);
+			while (rs.next()) {
+				LibVO dto = new LibVO();
+				dto.setbId(rs.getInt("bId"));
+				dto.setbName(rs.getString("bName"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setPublisher(rs.getString("publisher"));
+				dto.setComments(rs.getString("comments"));
+				dto.setLocation(rs.getString("location"));
+				dto.setAmount(rs.getInt("amount"));
 				dtos.add(dto);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(resultSet != null) resultSet.close();
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 		return dtos;
 	}
-	
-	public LibVO contentView(String strID) {
-		
-		LibVO dto = null;
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+
+	public void insertBook(LibVO dto) {
+		String sql = "insert into books(bId, bName, writer, publisher, location, amount, comments)"
+					+ "values (books_seq.nextval, ?, ?, ?, ?, books_seq.currval, ?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 		
 		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getbName());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getPublisher());
+			pstmt.setString(4, dto.getLocation());
+			pstmt.setString(5, dto.getComments());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}	
+	}
+	
+	public LibVO contentView(String strID) {
+		String sql = "select * from books where bId = ?";
+		LibVO dto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(strID));
+			rs = pstmt.executeQuery();
 			
-			connection = dataSource.getConnection();
-			
-			String sql = "select * from books where bId = ?";
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, Integer.parseInt(strID));
-			resultSet = preparedStatement.executeQuery();
-			
-			if(resultSet.next()) {
-				int bId = resultSet.getInt("bId");
-				String bName = resultSet.getString("bName");
-				String writer = resultSet.getString("writer");
-				String comments = resultSet.getString("comments");
-				String location = resultSet.getString("location");
-				int amount = resultSet.getInt("amount");
-				
-				dto = new LibVO(bId, bName, writer, comments, location, amount, location);
+			if(rs.next()) {
+				dto = new LibVO();
+				dto.setbId(rs.getInt("bId"));
+				dto.setbName(rs.getString("bName"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setPublisher(rs.getString("publisher"));
+				dto.setComments(rs.getString("comments"));
+				dto.setLocation(rs.getString("location"));
+				dto.setAmount(rs.getInt("amount"));
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(resultSet != null) resultSet.close();
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -128,27 +127,29 @@ public class LibDAO {
 		return dto;
 	}
 	
-	public void modify(String bId, String writer, String bName, String comments) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	public void updateBook(LibVO dto) {
+		String sql = "update books"
+				+ "set bName = ?, writer = ?, publisher = ?, comments = ?, location = ?"
+				+ "where bId = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 		
 		try {
-			connection = dataSource.getConnection();
-			
-			String query = "update books set writer = ?, bName = ?, comments = ? where bId = ?";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, writer);
-			preparedStatement.setString(2, bName);
-			preparedStatement.setString(3, comments);
-			preparedStatement.setInt(4, Integer.parseInt(bId));
-			int rn = preparedStatement.executeUpdate();
-			
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getbName());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getPublisher());
+			pstmt.setString(4, dto.getComments());
+			pstmt.setString(5, dto.getLocation());
+			pstmt.setInt(6, dto.getbId());
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
