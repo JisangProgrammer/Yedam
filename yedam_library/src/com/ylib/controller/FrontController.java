@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ylib.command.Command;
 import com.ylib.command.ContentCommand;
+import com.ylib.command.DeleteCommand;
 import com.ylib.command.ListCommand;
 import com.ylib.command.UpdateCommand;
 import com.ylib.command.InsertCommand;
@@ -64,11 +65,11 @@ public class FrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "list.do";
 		}
-//		else if(com.equals("/delete.do")) {
-//			command = new DeleteCommand();
-//			command.execute(request, response);
-//			viewPage = "list.do";
-//		}
+		else if(com.equals("/delete.do")) {
+			command = new DeleteCommand();
+			command.execute(request, response);
+			viewPage = "list.do";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

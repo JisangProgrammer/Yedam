@@ -64,7 +64,7 @@ public class LibDAO {
 
 	public void insertBook(LibVO dto) {
 		String sql = "insert into books(bId, bName, writer, publisher, location, amount, comments)"
-					+ "values (books_seq.nextval, ?, ?, ?, ?, books_seq.currval, ?)";
+					+ " values (books_seq.nextval, ?, ?, ?, ?, books_seq.currval, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -129,8 +129,8 @@ public class LibDAO {
 	
 	public void updateBook(LibVO dto) {
 		String sql = "update books"
-				+ "set bName = ?, writer = ?, publisher = ?, comments = ?, location = ?"
-				+ "where bId = ?";
+				+ " set bName = ?, writer = ?, publisher = ?, comments = ?, location = ?"
+				+ " where bId = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -143,7 +143,29 @@ public class LibDAO {
 			pstmt.setString(4, dto.getComments());
 			pstmt.setString(5, dto.getLocation());
 			pstmt.setInt(6, dto.getbId());
+			pstmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteBook(LibVO dto) {
+		String sql = "delete from books where bId = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getbId());
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
