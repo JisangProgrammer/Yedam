@@ -42,10 +42,10 @@ public class FrontController extends HttpServlet {
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
 		
-		if(com.equals("/regist_view.do")) {
-			viewPage = "regist_view.jsp";
+		if(com.equals("/insert_view.do")) {
+			viewPage = "insert_view.jsp";
 		}
-		else if(com.equals("/regist.do")) {
+		else if(com.equals("/insert.do")) {
 			command = new InsertCommand();
 			command.execute(request, response);
 			viewPage = "list.do";

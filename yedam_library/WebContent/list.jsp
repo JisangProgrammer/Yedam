@@ -23,7 +23,7 @@
 
 	</table>
 	
-	<form action="regist_view.do" method="post">
+	<form action="insert_view.do" method="post">
 		<input type="submit" value="도서 등록">
 	</form>
 

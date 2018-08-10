@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="header.jsp"/>
 
-	<form action="regist.do" method="post">
+	<form action="insert.do" method="post">
 		<div>
 			도서명 <input type="text" name="bName"><br>
 			저자 <input type="text" name="writer"><br>
